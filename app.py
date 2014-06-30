@@ -12,13 +12,12 @@ def display():
 @app.route('/submitdata', methods=['POST'])
 def submit():
 	global data
-	print "TRYING TO RECEIVE"
-	
+	print "TRYING TO RECEIVE: " + str(request.data)	
 	data = request.data
 	print "RECEIVED: " + str(data)
-	return "RECEIVED"
+	return "RECEIVED: " + str(request)
 
-@app.route('/getdata',methods=['GET'])
+@app.route('/getdata', methods=['GET'])
 def send():
 	global data
 	return data
