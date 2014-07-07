@@ -1,4 +1,13 @@
 HOUSEDROID
 ==========
 
-Simple Flask server to receive JSON input through /submitdata and feed it to HouseDroid through /getdata.
+Contributors:<br>
+<ul>
+    <li>Eric Bronner</li>
+    <li>Edward Choi</li>
+    <li>Alison Wong</li>
+    <li>Patrick Wu</li>
+    <li>Lawrence Yong</li>
+    <li>Timothy Yong</li>
+</ul>
+
