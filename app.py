@@ -13,7 +13,7 @@ def display():
 def submit():
 	global data
 	print "TRYING TO RECEIVE: " + str(request.data)	
-	data = request.data
+	data = request.form['data']
 	print "RECEIVED: " + str(data)
 	return "RECEIVED: " + str(request)
 
