@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import urllib, urllib2
+import requests
 
 # Mushed <sender.py> and <receiver.py> together
 
@@ -9,21 +9,9 @@ class iplink():
 
     def post(self, data, extraurl = "/submitdata"):
         url = self.url + extraurl
-        encoded = urllib.urlencode(data)
-        request = urllib2.Request(url, encoded)
-        try:
-            response = urllib2.urlopen(request)
-            return response
-        except urllib2.URLError, e:
-            print e.reason
-            return None
+		response = requests.post(url, data)
 
     def get(self, extraurl = "/getdata"):
         url = self.url + extraurl
-        try:
-            response = urllib2.urlopen(url)
-            return response.read()
-        except urllib2.URLError, e:
-            print e.reason
-            return None
-
+		response = requests.get(url)
+		return response.text
