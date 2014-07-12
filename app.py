@@ -1,5 +1,3 @@
-#! /usr/bin/python
-
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -12,12 +10,12 @@ def display():
 @app.route('/submitdata', methods=['POST'])
 def submit():
 	global data
-	print "TRYING TO RECEIVE: " + str(request.data)	
-	data = request.data
+	print "TRYING TO RECEIVE: " + str(request.args)	
+	data = request.args
 	print "RECEIVED: " + str(data)
 	return "RECEIVED: " + str(request)
 
-@app.route('/getdata', methods=['GET'])
+@app.route('/getdata',methods=['GET'])
 def send():
 	global data
 	return data
