@@ -4,6 +4,9 @@ if [ -d main\ program ]; then
 fi
 mkdir main\ program
 
+# get the setup script in there to autostart the program
+cp scripts/setupHouseDroid.sh main\ program/
+
 # get the platform in there
 cp platform/ArduinoSerial.py main\ program/
 cp platform/RobotClient.py main\ program/
