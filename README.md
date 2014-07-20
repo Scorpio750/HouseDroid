@@ -23,6 +23,7 @@ To load code onto the raspberry pi, do the following:
 	$ mv .bashrc.tmp .bashrc
 
 </li>
+</ol>
 Contributors:<br>
 <ul>
     <li>Eric Bronner</li>
