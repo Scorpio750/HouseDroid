@@ -16,7 +16,9 @@ To load code onto the raspberry pi, do the following:<br>
 	$ echo -e "[Desktop Entry]\nType=Application\nExec=lxterminal" >HouseDroid.desktop
 	$ cd ~/
 	$ if [ ! -f .bashrc ]; then echo "" >.bashrc; fi
-	$ echo "python RobotClient.py" >HouseDroidcmd.txt && cat .bashrc HouseDroidcmd.txt >.bashrc.tmp && rm HouseDroidcmd.txt
+	$ echo "python RobotClient.py" >HouseDroidcmd.txt
+	$ cat .bashrc HouseDroidcmd.txt >.bashrc.tmp
+	$ rm HouseDroidcmd.txt
 	$ mv .bashrc.tmp .bashrc
 
 Contributors:<br>
