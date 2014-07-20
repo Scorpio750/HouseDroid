@@ -1,6 +1,7 @@
-import Controller
 import ArduinoSerial
 import sys, signal
+import imp
+Controller = 
 
 exit_signal = False
 sensitivity = 0.7
