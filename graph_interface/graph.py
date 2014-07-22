@@ -6,9 +6,10 @@ class Vector(object):
 		self.degrees = deg
 		self.magnitude = mag
 	
+	#built-in tostring function"""
 	def __str__(self):
 		return 'Degrees: ' + str(self.degrees) + '\nMagnitude: ' + str(self.magnitude)	
-
+	#built-in equals function"""
 	def __eq__(self,other):
 		#two vectors are equal if they have the same degree and magnitude
 		if other is None:
@@ -16,6 +17,8 @@ class Vector(object):
 		if self.degrees == other.degrees and self.magnitude == other.magnitude:
 			return True
 		return False
+
+	#Ed Sucx
 
 class Edge(object):
 
