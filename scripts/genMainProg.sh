@@ -2,6 +2,7 @@
 if [ -d main\ program ]; then
   rm -rf main\ program
 fi
+cd ..
 mkdir main\ program
 
 # get the setup script in there to autostart the program
