@@ -10,7 +10,7 @@ To load code onto the raspberry pi, do the following:<br>
 3) If you have not done this already, type in the following to make the program start at boot:<br>
   In the raspberry pi home folder, type:
 
-	$ ./setupHouseDroid.sh
+	$ ./scripts/setupHouseDroid.sh
 
 Contributors:<br>
 <ul>
@@ -19,5 +19,26 @@ Contributors:<br>
     <li>Patrick Wu</li>
     <li>Lawrence Yong</li>
     <li>Timothy Yong</li>
+</ul>
+
+Dependencies (apt-get or pacman or brew):
+<ul>
+    <li>sphinx-base</li>
+    <li>pocketsphinx-dev</li>
+    <li>libopencv-dev</li>
+    <li>python-opencv</li>
+    <li>libgstreamer1.0-dev</li>
+    <li>python-gst-1.0</li>
+    <li>libfreenect-dev</li>
+    <li>python-freenect</li>
+    <li>arduino</li>
+</ul>
+
+Python Dependencies (pip):
+<ul>
+    <li>requests</li>
+    <li>numpy</li>
+    <li>pygame</li>
+    <li>serial</li>
 </ul>
 

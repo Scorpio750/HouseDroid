@@ -10,7 +10,7 @@ class Connection():
     self.connection = None
     self.previouswrite = ""
     if not self.connect(port, baudrate):
-      print "Unable to connect to {0}, exiting.".format(port)
+      print "Unable to connect to {0}".format(port)
       #self.disconnect()
       #sys.exit(0)
     else:
@@ -18,6 +18,7 @@ class Connection():
  
   def connect(self, port, baudrate):
     self.disconnect()
+    self.baudrate = baudrate
     try:
       if not debug:
         self.connection = serial.Serial(port, baudrate)
@@ -34,7 +35,7 @@ class Connection():
     return self.connection != None
 
   def disconnect(self):
-    if self.connection != None:
+    if self.connected():
       if not debug:
         self.connection.close()
         print "Disconnected"
@@ -71,7 +72,7 @@ class Connection():
       # shorten buffer
       self.databuffer = self.databuffer[pos[1]:]
       try:
-        string = eval (rawString)
+        string = eval(rawString)
         return string
       except:
         return ""

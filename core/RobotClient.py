@@ -1,7 +1,5 @@
 import ArduinoSerial
 import sys, signal
-import imp
-Controller = 
 
 exit_signal = False
 sensitivity = 0.7
@@ -22,17 +20,8 @@ def main():
   FORWARD = 1
   BACKWARD = 2
 
-  print "Connecting to /dev/ttyUSB0"
-  Robot = ArduinoSerial.Connection(port = "/dev/ttyUSB0", baudrate = 38400)
-  while not Robot.connected():
-    print "Connecting to /dev/ttyACM0"
-    Robot = ArduinoSerial.Connection(port = "/dev/ttyACM0", baudrate = 38400)
-    if Robot.connected():
-      break
-    print "Connecting to /dev/ttyUSB0"
-    Robot = ArduinoSerial.Connection(port = "/dev/ttyUSB0", baudrate = 38400)
-
-  while not Controller.CONNECTED:
+  Robot = ArduinoSerial.Connection(baudrate = 38400)
+    while not Controller.CONNECTED:
     Controller.init()
 
   # speed: 
@@ -46,6 +35,27 @@ def main():
   global sensitivity
 
   while not exit_signal:
+
+    # Check for Robot connection
+    if not Robot.connected():
+      serialPorts = filter(lambda name: \
+          name.find("ttyUSB") != -1 or name.find("ttyACM") != -1, \
+          os.listdir("/dev"))
+      for port in serialPorts:
+        print "Try to connect to {0}".format(port)
+        Robot.connect(port, 38400)
+        if Robot.connected():
+          print "Connected to {0}".format(port)
+          break
+      # If still not connected, refresh the loop
+      if not Robot.connected():
+        continue
+
+    if not Controller.CONNECTED:
+      
+    
+
+
     Controller.read()
     joysticks = Controller.JOYSTICKS
     triggers = Controller.TRIGGERS
