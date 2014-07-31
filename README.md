@@ -4,13 +4,13 @@ HOUSEDROID
 To load code onto the raspberry pi, do the following:<br>
 1) In the HouseDroid folder, type:
 
-	$ ./genMainProg.sh
+	$ ./scripts/genMainProg.sh
 
 2) Move the contents of "./main program/" to the sdcard's home folder<br>
 3) If you have not done this already, type in the following to make the program start at boot:<br>
   In the raspberry pi home folder, type:
 
-	$ ./scripts/setupHouseDroid.sh
+	$ ./setupHouseDroid.sh
 
 Contributors:<br>
 <ul>
