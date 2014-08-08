@@ -29,8 +29,7 @@ Dependencies (apt-get or pacman or brew):
     <li>python-opencv</li>
     <li>libgstreamer1.0-dev</li>
     <li>python-gst-1.0</li>
-    <li>libfreenect-dev</li>
-    <li>python-freenect</li>
+    <li>librekinect</li>
     <li>arduino</li>
 </ul>
 
