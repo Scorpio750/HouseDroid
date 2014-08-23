@@ -9,8 +9,8 @@ mkdir main\ program
 cp scripts/setupHouseDroid.sh main\ program/
 
 # get the core in there
-cp core/ArduinoSerial.py main\ program/
-cp core/RobotClient.py main\ program/
+cp core/RobotClient.py main\ program/RobotClient.py
+cp arduino/ArduinoSerial.py main\ program/ArduinoSerial.py
 
 # get the controller in there as well for now
-cp gamepads/Controller.py main\ program/
+cp manctrl/Controller.py main\ program/Controller.py
