@@ -1,1 +1,0 @@
-/home/timothy/objdetect/cpp_code/CMakeFiles/findObject.dir
