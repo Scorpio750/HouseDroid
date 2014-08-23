@@ -9,6 +9,6 @@ Database: mysql
 Url: housedroid-v1-0.appspot.com/
 Dependencies: jquery
 
-To start server:
-$ cd /path/to/HouseDroid/iplink
+To start server locally:
+$ cd /path/to/HouseDroid/iplink/server
 $ goapp serve
