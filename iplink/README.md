@@ -11,6 +11,6 @@ Dependencies: jquery
 
 To start server locally:
 
-  $ cd /path/to/HouseDroid/iplink/server
-  $ goapp serve
+	$ cd /path/to/HouseDroid/iplink/server
+	$ goapp serve
 
