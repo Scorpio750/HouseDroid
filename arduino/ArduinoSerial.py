@@ -1,8 +1,19 @@
+## @package ArduinoSerial
 import serial, sys
 
 debug = False
+query = 0
+virtual_connection = ["chassis", "claw"]
 
+# This is a connection class
 class Connection():
+  ## constructor for the Connection object
+  #  @param self
+  #     the object pointer
+  #  @param port
+  #     (optional) the port at which the device is located
+  #  @param baudrate
+  #     (optional) the baudrate of the serial connection
   def __init__(self, port = "/dev/ttyUSB0", baudrate = 9600):
     self.port = port
     self.baudrate = baudrate
@@ -16,6 +27,15 @@ class Connection():
     else:
       print "Connection successful"
  
+  ## connect to a device
+  #  @param self
+  #     the object pointer
+  #  @param port
+  #     the port at which the device is located
+  #  @param baudrate
+  #     the baudrate of the serial connection
+  #  @return
+  #     boolean representing if connection successful
   def connect(self, port, baudrate):
     self.disconnect()
     self.baudrate = baudrate
@@ -31,9 +51,19 @@ class Connection():
       self.connection = None
       return False
 
+  ## tries to identify if the device is connected
+  #  @param self
+  #     the object pointer
+  #  @return
+  #     boolean representing if connection successful
   def connected(self):
     return self.connection != None
 
+  ## disconnect the current device
+  #  @param self
+  #     the object pointer
+  #  @return
+  #     None
   def disconnect(self):
     if self.connected():
       if not debug:
@@ -43,6 +73,13 @@ class Connection():
         print "Debug disconnected"
       self.connection = None
 
+  ## try to parse arduino specific data
+  #  @param self
+  #     the object pointer
+  #  @param string
+  #     the string of data to be evaluated
+  #  @return
+  #     positions of start and end on success, or None on error
   def parseData(self, string):
     backstring = string[::-1]
     endpos = backstring.find("]")
@@ -54,9 +91,21 @@ class Connection():
     startpos += 1
     return [len(backstring) - startpos, len(backstring) - endpos]
 
+  ## try to read in data
+  #  @param self
+  #     the object pointer
+  #  @return
+  #     an evaluated datastring
   def read(self):
     if debug:
-      return
+      global virtual_connection
+      global query
+      if query >= len(virtual_connection):
+        return None
+      else:
+        ID = virtual_connection[query]
+        query += 1
+        return [ID]
     byteWait = self.connection.inWaiting()
     if byteWait:
       self.databuffer += self.connection.read(byteWait)
@@ -77,6 +126,13 @@ class Connection():
       except:
         return ""
 
+  ## tries to write to serial
+  #  @param self
+  #     the object pointer
+  #  @param message
+  #     the message to send over serial to device
+  #  @return
+  #     None
   def write(self, message):
     if message != self.previouswrite:
       self.previouswrite = message
