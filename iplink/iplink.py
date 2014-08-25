@@ -1,17 +1,18 @@
 #!/usr/bin/python
 import requests
+import json
 
 # Mushed <sender.py> and <receiver.py> together
 
 class iplink():
-    def __init__(self, url = "http://127.0.0.1:3000"):
-        self.url = url
+  def __init__(self, url = "housedroid-v1-0.appspot.com"):
+    self.url = url
 
-    def post(self, data, extraurl = "/submitdata"):
-        url = self.url + extraurl
-		response = requests.post(url, data)
+  def post(self, message, url = "/sendData"):
+    url = self.url + url
+    response = requests.post(url, data = json.dumps(message), headers = {"content-type": "application/json"})
 
-    def get(self, extraurl = "/getdata"):
-        url = self.url + extraurl
-		response = requests.get(url)
-		return response.text
+  def get(self, url = "/getData"):
+    url = self.url + url
+    response = requests.get(url)
+    return response.json()

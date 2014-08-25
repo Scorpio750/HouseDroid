@@ -1,15 +1,16 @@
-Iplink
+IPLINK
 ======
 
-Simple Flask server to receive JSON input through /submitdata and feed it to HouseDroid through /getdata.
+Kernel: Linux<br>
+Server: google app engine<br>
+Language: golang<br>
+Database: mysql
 
-Patrick Wu initial commit:
+Url: housedroid-v1-0.appspot.com/<br>
+Dependencies: jquery
 
-    sender.py
-    receiver.py
-    app.py
+To start server locally:
 
-Timothy Yong commit:
-
-    iplink.py
+	$ cd /path/to/HouseDroid/iplink/server
+	$ goapp serve
 

@@ -9,4 +9,4 @@ The graph will be used to allow the robot to map the area for itself.
 Vertices will be created to store locations where the robot needs to make a decision regarding which direction to go next.
 Edges will contain the degree and magnitude of its respective vertex.
 
-Graph will be capable of running Dijkstra's algorithm.
+Graph is capable of running Dijkstra's algorithm.
