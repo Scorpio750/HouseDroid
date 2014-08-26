@@ -4,9 +4,6 @@
 
 #define BAUDRATE  57600
 #define MAXBUFLEN 512
-#define OFF       0
-#define FW        1
-#define BW        2
 
 #define ID "claw"
 #define MOTOR_NUM 1
