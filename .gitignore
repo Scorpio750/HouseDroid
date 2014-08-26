@@ -2,3 +2,6 @@
 .pyc
 .o
 main\ program/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
