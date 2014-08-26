@@ -1,7 +1,7 @@
 IPLINK
 ======
 
-Autohor: Patrick Wu
+Authors: Patrick Wu and Timothy Yong
 
 Kernel: Linux<br>
 Server: google app engine<br>
