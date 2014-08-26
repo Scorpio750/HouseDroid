@@ -2,10 +2,10 @@
 import requests
 import json
 
-# Mushed <sender.py> and <receiver.py> together
+server_url = "housedroid-v1-0.appspot.com"
 
 class iplink():
-  def __init__(self, url = "housedroid-v1-0.appspot.com"):
+  def __init__(self, url = server_url):
     self.url = url
 
   def post(self, message, url = "/sendData"):
