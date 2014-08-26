@@ -13,4 +13,4 @@ cp core/RobotClient.py main\ program/RobotClient.py
 cp arduino/ArduinoSerial.py main\ program/ArduinoSerial.py
 
 # get the controller in there as well for now
-cp manctrl/Controller.py main\ program/Controller.py
+cp manual_control/Controller.py main\ program/Controller.py
