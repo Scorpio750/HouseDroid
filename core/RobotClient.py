@@ -106,19 +106,14 @@ def main():
   claw.write("[000]")
 
   # try to connect to te controller
-  while not Controller.CONNECTED:
-    Controller.init()
+  controller = Controller.controller()
+  controller.connect()
 
   # control the robot
   while not exit_signal:
 
-    Controller.update()
-    joysticks = Controller.JOYSTICKS
-    triggers = Controller.TRIGGERS
-    buttons = Controller.BUTTONS
-
-    X = joysticks["RightX"]
-    Y = joysticks["RightY"]
+    X = controller.data.RJOY.x
+    Y = controller.data.LJOY.y
     leftside = limitoutput(X - Y)
     rightside = limitoutput(-X - Y)
 
@@ -161,6 +156,7 @@ def main():
 
   chassis.write("[000000000]")
   claw.write("[000]")
+  controller.disconnect()
   disconnectAll(connections)
 
 if __name__ == "__main__":
