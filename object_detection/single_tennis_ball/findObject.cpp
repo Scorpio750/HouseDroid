@@ -27,6 +27,13 @@ int main(int argc, char *argv[]) {
   string name = argv[1];
   Mat old_image = imread(name);
   Mat image = old_image.clone();
+  Mat ximage = image.clone(), yimage = image.clone();
+  for (int y = 0; y < image.rows; y++) {
+    for (int x = 0; x < image.cols; x++) {
+      ximage.at<Vec3b>(y, x) = Vec3b(255, 255, 255);
+      yimage.at<Vec3b>(y, x) = Vec3b(255, 255, 255);
+    }
+  }
 
   /* mask the image for the object */
   Vec3b target(29, 228, 200);
@@ -62,10 +69,14 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < image.cols; i++) {
     midx += histogram_x[i] * i;
     countx += histogram_x[i];
+    for (int n = 0; n < histogram_x[i]; n++)
+      ximage.at<Vec3b>(image.rows - n - 1, i) = Vec3b(0, 0, 255);
   }
   for (int i = 0; i < image.rows; i++) {
     midy += histogram_y[i] * i;
     county += histogram_y[i];
+    for (int n = 0; n < histogram_y[i]; n++)
+      yimage.at<Vec3b>(i, n) = Vec3b(255, 0, 0);
   }
   midx /= countx;
   midy /= county;
@@ -85,6 +96,10 @@ int main(int argc, char *argv[]) {
   /* open a window, display it */
   namedWindow("picture", CV_WINDOW_AUTOSIZE);
   imshow("picture", old_image);
+  namedWindow("xhist", CV_WINDOW_AUTOSIZE);
+  imshow("xhist", ximage);
+  namedWindow("yhist", CV_WINDOW_AUTOSIZE);
+  imshow("yhist", yimage);
   namedWindow("new picture", CV_WINDOW_AUTOSIZE);
   imshow("new picture", image);
   waitKey(0);
