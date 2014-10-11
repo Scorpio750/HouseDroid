@@ -1,0 +1,7 @@
+cmake_minimum_required( VERSION 2.8 )
+project( Map_Interface )
+set( BUILD_POSTFIX "" )
+include_directories( "${PROJECT_BINARY_DIR}/Map" )
+include_directories( "${PROJECT_BINARY_DIR}/executable" )
+add_subdirectory( Map )
+add_subdirectory( executable )

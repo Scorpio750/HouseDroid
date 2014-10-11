@@ -1,0 +1,5 @@
+find_package( OpenCV REQUIRED )
+add_executable( map start_mapping.cpp )
+target_link_libraries( map Map_lib ${OpenCV_LIBS} )
+set_target_properties( map PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin )
+set_target_properties( map PROPERTIES OUTPUT_NAME map${BUILD_POSTFIX} )
