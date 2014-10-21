@@ -24,6 +24,7 @@ void controller_connect(struct controller_t *controller) {
   if (!(dp = opendir(INPUT_DIR)))
     return;
   controller->name = NULL;
+  controller->connected = 0;
   while ((ent = readdir(dp)))
     if (strstr(ent->d_name, JS_PREFIX)) {
       controller->name = (char *)malloc((strlen(INPUT_DIR) + strlen(ent->d_name) + 1) * sizeof(char));
@@ -52,6 +53,7 @@ error:
   controller->alive = 0;
   if (controller->fd != -1)
     close(controller->fd);
+  controller->fd = -1;
   if (controller->name != NULL)
     free(controller->name);
   controller->name = NULL;
@@ -130,7 +132,8 @@ static void *_controller_update(void *controller_arg) {
           break;
       }
     } else if (event.type & JS_EVENT_AXIS) {
-      float value = (float)event.value;
+      float value;
+      value = (float)event.value;
       if (value > 1.0 || value < -1.0)
         value /= (float)MAX_16BIT;
       if (event.type & JS_EVENT_INIT)
@@ -161,6 +164,7 @@ static void *_controller_update(void *controller_arg) {
         case 7:
           controller->UP = value < 0.0;
           controller->DOWN = value > 0.0;
+          break;
       }
     }
   }
@@ -185,4 +189,5 @@ void controller_disconnect(struct controller_t *controller) {
   if (controller->name != NULL)
     free(controller->name);
   memset(controller, 0, sizeof(struct controller_t));
+  controller->fd = -1;
 }

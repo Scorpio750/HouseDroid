@@ -37,7 +37,7 @@ class _controller_(Structure):
               ("SELECT",    c_int8),
               ("HOME",      c_int8)]
 
-class controller(object):
+class Controller(object):
   def __init__(self):
     self.data = _controller_()
 
