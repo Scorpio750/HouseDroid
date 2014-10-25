@@ -1,5 +1,5 @@
 import sys, os
-dllname = "libcontroller.so.1"
+dllname = "libcontroller.so"
 if not dllname in os.listdir("."):
   print "Error: cannot find libcontroller.so in the current directory"
   sys.exit(1)
