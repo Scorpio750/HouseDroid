@@ -1,0 +1,5 @@
+find_package( OpenCV REQUIRED )
+add_library( Map_lib SHARED Map.cpp )
+target_link_libraries( Map_lib ${OpenCV_LIBS} )
+set_target_properties( Map_lib PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/libs )
+set_target_properties( Map_lib PROPERTIES OUTPUT_NAME Map_lib${BUILD_POSTFIX} )
