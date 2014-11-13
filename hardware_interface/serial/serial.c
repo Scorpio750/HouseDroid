@@ -25,7 +25,8 @@ static int setSerAttr(struct serial_t *connection);
  *  @param baudrate
  *    A baudrate, defaulted to 9600.
  *  @param parity
- *    A bool to decide whether or not parity to be turned on. */
+ *    A bool to decide whether or not parity to be turned on.
+ */
 int serial_connect(struct serial_t *connection, char *port, int baudrate, int parity) {
   /* try to open the device */
   if (port) {
@@ -99,6 +100,10 @@ error:
   return -1;
 }
 
+/** Helper method to set the attributes of a serial connection.
+ *  @param connection
+ *    the serial port to connect to
+ */
 static int setSerAttr(struct serial_t *connection) {
   struct termios tty;
   memset(&tty, 0, sizeof(struct termios));
@@ -123,6 +128,11 @@ static int setSerAttr(struct serial_t *connection) {
   return 0;
 }
 
+/** Threadable method to update the readbuf of the serial communication,
+ *  as well as the connection itself.
+ *  @param connection_arg
+ *    the serial struct defined opaquely for thread function usage
+ */
 static void *_serial_update(void *connection_arg) {
   struct serial_t *connection;
   int numAvailable;
@@ -157,7 +167,6 @@ static void *_serial_update(void *connection_arg) {
     /* update buffer */
     if ((numAvailable = read(connection->fd, connection->readbuf, SWREADMAX)) > 0) {
       connection->readbuf[numAvailable] = '\0';
-      connection->readAvailable = 1;
       if ((totalBytes = strlen(connection->buffer) + numAvailable) >= SWBUFMAX) {
         totalBytes -= SWBUFMAX - 1;
         memmove(connection->buffer, &connection->buffer[totalBytes], SWBUFMAX - totalBytes);
@@ -166,15 +175,18 @@ static void *_serial_update(void *connection_arg) {
       strcat(connection->buffer, connection->readbuf);
 
       /* extract last data packet */
-      end_index = strrchr(connection->buffer, '\n');
-      for (start_index = end_index - 2;
-          start_index >= connection->buffer && start_index[0] != '\n';
-          start_index--);
-      start_index++;
-      totalBytes = (int)(end_index - start_index);
-      memcpy(connection->readbuf, start_index, totalBytes);
-      connection->readbuf[totalBytes] = '\0';
-      memmove(connection->buffer, end_index + 1, strlen(end_index) + 1);
+      if ((end_index = strrchr(connection->buffer, ']')) != -1) {
+        char c;
+        c = end_index[1];
+        start_index = strrchr(connection->buffer, '[');
+        start_index++;
+        end_index[1] = c;
+        totalBytes = (int)(end_index - start_index);
+        memcpy(connection->readbuf, start_index, totalBytes);
+        connection->readbuf[totalBytes] = '\0';
+        memmove(connection->buffer, end_index + 1, strlen(end_index) + 1);
+        connection->readAvailable = 1;
+      }
     }
 
     pthread_mutex_unlock(&connection->lock);
@@ -183,23 +195,30 @@ static void *_serial_update(void *connection_arg) {
   return NULL;
 }
 
-/** Read from the data.
+/** Read a string from the serial communication link.
+ *  @param connection
+ *    the serial connection to read a message from
+ *  @note
+ *    this will return a malloc'd string! be sure to free when done
  */
 char *serial_read(struct serial_t *connection) {
-  /*char *buf;
+  char *buf;
   buf = NULL;
   pthread_mutex_lock(&connection->lock);
   if (connection->readAvailable) {
-    buf = connection->readbuf;
+    buf = (char *)malloc((strlen(connection->readbuf) + 1) * sizeof(char));
+    memcpy(buf, connection->readbuf, (strlen(connection->readbuf) + 1) * sizeof(char));
     connection->readAvailable = 0;
   }
   pthread_mutex_unlock(&connection->lock);
-  return buf;*/
-  /*printf("%s\n", connection->readbuf);*/
-  return connection->readbuf;
+  return buf;
 }
 
-/** Write from the data.
+/** Write a message to the serial communication link.
+ *  @param connection
+ *    the serial communication link to write to
+ *  @param message
+ *    the message to send over to the other side
  */
 void serial_write(struct serial_t *connection, char *message) {
   write(connection->fd, message, strlen(message));
